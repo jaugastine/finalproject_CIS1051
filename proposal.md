@@ -14,7 +14,7 @@ My software will let the user "walk" through a bookstore, allowing them to brows
 
 ## If planning to combine 1051's final project with another course's final project, with which other course? And which aspect(s) of your proposed project would relate to 1051, and which aspect(s) would relate to the other course?
 
-N/A
+I would like to combine this project with my Web Service Programming(MIS3502) final project. The aspects that would relate to 1051 would be the how I design the website with graphics and interactive features. In my MIS classes, the general outline of websites we make are quite plain and boring, so I would be challenging myself on the user interface. The aspects that would relate to the my Web Service Programming class would be that I would host the website on AWS and the website would need to comply with accesibility guidelines.
 
 ## If planning to collaborate with 1 or 2 classmates for the final project, list their names, email addresses, and the names of their assigned TAs below.
 
