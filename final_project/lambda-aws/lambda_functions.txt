@@ -1,0 +1,360 @@
+
+const dboptions = {
+  'user' : 'j42',
+  'password' : '6J5H9D',
+  'database' : 'j42cherry',
+  'host' : 'dataanalytics.temple.edu'
+};
+
+//global connection variable
+var connection;
+
+let returnBook = async (res,body) => {
+	//work and return the result
+	let itemid = body.itemid;
+
+	if (itemid == undefined || itemid == "") {
+		return formatres(res,"The key itemid was undefined or empty",400);
+	}
+
+	let duedate = 'SELECT datedue FROM items WHERE itemid = ?'
+	let datecheckedout = 'SELECT datechecked FROM items WHERE itemid = ?'
+
+	let now = `new Date()`;
+
+	if (duedate <= now){
+		let txtSQL = `UPDATE items SET available = "Y",  datechecked = NULL, datedue = NULL, userid = NULL WHERE itemid = ?`;
+		let [result] = await connection.execute(txtSQL, [itemid]);
+	}
+
+	let txtSQL = `UPDATE items SET available = "Y",  datechecked = NULL, datedue = NULL, userid = NULL WHERE itemid = ?`;
+	let [result] = await connection.execute(txtSQL, [itemid]);
+	
+	return formatres(res,result,200);
+};
+
+let userItemList = async (res,query) => {
+	// get data u need
+	let userid = query.userid
+
+	if (userid==undefined || userid==""){
+		return formatres(res,"The key userid was undefined or empty",400);
+	}
+
+	// do work and return data
+	
+	let txtSQL = `SELECT * FROM items 
+				WHERE userid = ?
+				ORDER BY name`;
+	let [result] = await connection.execute(txtSQL,[userid]);
+	return formatres(res,result,200);
+
+	// use this to test through endpoint: items?available=Y
+};
+
+let rentBook = async (res,body) => {
+	//work and return the result
+	let itemid = body.itemid;
+	let userid = body.userid;
+
+	if (itemid == undefined || itemid == "") {
+		return formatres(res,"The key itemid was undefined or empty",400);
+	}
+	if (userid == undefined || userid == "") {
+		return formatres(res,"The key userid was undefined or empty",400);
+	}
+	
+	let txtSQL = `UPDATE items SET available = "N", datechecked = NOW(), datedue = DATE_ADD(datechecked, INTERVAL 1 MINUTE), userid = ? WHERE itemid = ?`;
+	let [result] = await connection.execute(txtSQL, [userid,itemid]);
+	
+	return formatres(res,result,200);
+};
+
+
+let deleteItem = async (res,body) => {
+	let itemid = body.itemid;
+	let userid = body.userid;
+
+	if (itemid == undefined || itemid == "") {
+		return formatres(res,"The key itemid was undefined or empty",400);
+	}
+
+	if (userid == undefined || userid == "") {
+		return formatres(res,"The key userid was undefined or empty",400);
+	}
+
+	let txtSQL1 = "SELECT * FROM users WHERE userid = ? and admin = 'Y'";
+	let[result1] = await connection.execute(txtSQL1,[userid]);
+	
+	if (result1.length == 0) {
+		return formatres(res, "Only admins can delete items",400);
+	} else {
+		let txtSQL2 = "DELETE FROM items WHERE itemid = ?";
+		let[result2] = await connection.execute(txtSQL2,[itemid]);
+		return formatres(res,result2,200);
+	}
+		//return formatres(res,"Internal server error",500);
+};
+
+let additem = async (res, body) => {
+
+	// 1. Get the data you need
+	let name = body.name;
+	let author = body.author;
+	let description = body.description;
+	let bookcover = body.bookcover;
+	
+	// 2. Error handling
+	if (name == undefined) {
+		return formatres(res, "The key name was undefined", 400);
+}
+	if (author == undefined) {
+		return formatres(res, "The key author was undefined", 400);
+}
+	if (description == undefined) {
+		return formatres(res, "The key description was undefined", 400);
+
+}	
+	if (bookcover == undefined) {
+		return formatres(res, "The key bookcover was undefined", 400);	
+}	
+	if (name === '') {
+		return formatres(res, "The key name was blank", 400);	
+}	
+	if (author === '') {
+		return formatres(res, "The key author was undefined", 400);
+}
+	if (description === '') {
+		return formatres(res, "The key description was blank", 400);
+}
+	if (bookcover === '') {
+		return formatres(res, "The key bookcover was undefined", 400);	
+}	
+	
+	// 3. Insert item into the database
+	let txtSQL = `INSERT INTO items (name, author, description, bookcover, available) VALUES (?, ?, ?, ?, "Y")`;
+	let [result] = await connection.execute(txtSQL, [name,author, description, bookcover]);
+	
+	let itemid = result.insertId;
+	`// 4. Generate itemcode
+	let itemid = result.insertId;
+	let randomcode = Math.random().toString(36).substring(2, 7).toLowerCase();
+	let itemcode = randomcode + itemid;
+	
+	// 5. Update item with generated itemcode
+	let updateSQL = "UPDATE items SET itemcode = ? WHERE itemid = ?";
+	await connection.execute(updateSQL, [itemcode, itemid]);
+	`
+	// 6. Retrieve the full item information to confirm success
+	let txtSQLsuccess = "SELECT * FROM items WHERE itemid = ?";
+	let [resultSuccess] = await connection.execute(txtSQLsuccess, [itemid]);
+	
+	// 7. Return success response with the item data
+	return formatres(res, resultSuccess, 200);
+	};
+	
+
+let itemProp = async (res,query) => {
+	//work and return the result
+	let itemid = query.itemid
+	let txtSQL = `SELECT * FROM items 
+				WHERE itemid = ?`;
+	let [result] = await connection.execute(txtSQL,[itemid]);
+	return formatres(res,result,200);
+};
+
+let itemList = async (res,query) => {
+	// get data u need
+	let available = query.available
+
+	// make sure it is good (error trap)
+	// if it is y or an n, if its not y and not n (bad)
+	if (available==undefined || available==""){
+		return formatres(res,"The key available was undefined or empty",400);
+	}
+	if (available!="Y" && available!="N" ){
+		return formatres(res,"The key available must be Y or N",400);
+	}
+	// do work and return data
+	
+	let txtSQL = `SELECT * FROM items 
+				WHERE available = ?
+				ORDER BY name`;
+	let [result] = await connection.execute(txtSQL,[available]);
+	return formatres(res,result,200);
+
+	// use this to test through endpoint: items?available=Y
+};
+
+let clientList = async (res,query) => {
+	//work and return the result
+	let txtSQL = `SELECT * FROM clients 
+				WHERE active = 'Y' 
+				ORDER BY lastname, firstname `;
+	let [result] = await connection.execute(txtSQL);
+	return formatres(res,result,200);
+};
+
+
+let auth = async (res,body) => {
+	
+	// 1 get the data you need
+	let username = body.username;
+	let password = body.password;
+	
+	// 2 error trap
+	if (username == undefined){
+		return formatres(res,"The key username was undefined",400);
+	}
+	if (password == undefined){
+		return formatres(res,"The key password was undefined",400);
+	}
+	if (username == ''){
+		return formatres(res,"The key username was blank",400);
+	}
+	if (password == ''){
+		return formatres(res,"The key password was blank",400);
+	}
+	
+	// 3 work and return the result
+	let txtSQL = `SELECT userid, username, firstname, 
+	lastname, admin FROM users 
+	WHERE username = ? AND password = ? `;
+	
+	let [result] = await connection.execute(txtSQL, [username, password]);
+	return formatres(res,result,200);
+};
+
+
+let theDatetimeFunction = async (res,query) => {
+	//work and return the result
+	let [result] = await connection.execute("select DATE_FORMAT(NOW(), '%m-%d-%Y %h:%i %p') AS the_date_and_time");
+	return formatres(res,result[0]['the_date_and_time'],200);
+}
+
+// do not delete this handy little supporting function
+let formatres = async (res, output, statusCode) => {
+	
+	// kill the global database connection
+	if (connection != undefined &&  
+		typeof(connection)=='object' &&  
+		typeof(connection.end())=='object'  ){
+		await connection.end();
+	}
+
+	res.statusCode = statusCode;
+	res.body = JSON.stringify(output);
+	return res;	
+};
+
+// do not delete this handy little supportng function
+function isEmpty(obj) {
+    return Object.keys(obj).length === 0;
+}
+
+// My Routing Function ****** STUDENT MAY EDIT **********
+
+let myRoutingFunction = (res,method,path,query,body) => {
+
+	// conditional statements go here.
+	// look at the path and method and return the output from the 
+	// correct supporting function.
+
+	// Simple GET request with no features specified results
+	// in a list of features / instructions
+	if (method == "GET" && path == ""){
+		return formatres(res, features, 200);
+	}
+
+	if (method == "POST" && path == "auth"){
+		return auth(res,body);  
+	}
+	
+	if (method == "GET" && path == "clients"){
+		return clientList(res,query);  
+	}
+
+	if (method == "GET" && path == "items"){
+		return itemList(res,query);  
+	}
+
+	if (method == "GET" && path == "item"){
+		return itemProp(res,query);  
+	}
+	
+	if (method == "POST" && path == "additem"){
+		return additem(res,body);  
+	}
+
+	if (method == "DELETE" && path == "item"){
+		return deleteItem(res,body);  
+	}
+
+	if (method == "POST" && path == "item"){
+		return rentBook(res,body);  
+	}
+
+	if (method == "GET" && path == "useritems"){
+		return userItemList(res,query);  
+	}
+	
+	if (method == "POST" && path == "useritems"){
+		return returnBook(res,body);  
+	}
+
+	return(res);
+};
+
+
+// event handler **** DO NOT EDIT ***********
+
+// Students should not have to change the code here.
+// Students should be able to read and understand the code here.
+
+export const handler = async (request) => {
+
+	connection = await mysql.createConnection(dboptions);	
+
+	// identify the method (it will be a string)
+	let method = request["httpMethod"];
+	
+	// identify the path (it will also be a string)
+	let fullpath = request["path"];
+	
+	// we clean the full path up a little bit
+	if (fullpath == undefined || fullpath == null){ fullpath = ""};
+	let pathitems = fullpath.split("/");
+	let path = pathitems[2];
+	if (path == undefined || path == null){ path = ""};
+	
+	// identify the querystring ( we will convert it to 
+	//   a JSON object named query)
+	let query = request["queryStringParameters"];
+	if (query == undefined || query == null){ query={} };
+	
+	// identify the body (we will convert it to 
+	//   a JSON object named body)
+	let body = qs.parse(request["body"]);
+	if (body == undefined || body == null){ body={} };
+
+	// Create the default response object that will include 
+	// the status code, the headers needed by CORS, and
+	// the string to be returned formatted as a JSON data structure.
+    let res = {
+        'statusCode': 400,
+        'headers': {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Credentials': true  
+        },
+        'body': JSON.stringify("Feature not found."),
+    };
+
+	// run all the parameters through my routing function
+	// and return the result
+    return myRoutingFunction(res,method,path,query,body);
+    
+    //*** this is a good place to test one supporting function at a time
+    //query={};
+    //return theDatetimeFunction(res,query);
+    
+};

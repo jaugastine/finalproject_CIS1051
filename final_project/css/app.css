@@ -1,0 +1,114 @@
+body{
+	background-color: #e2f3ff;
+}
+label{
+    margin-top:10px;
+    margin-bottom:10px;
+    font-size: 1.25em;
+}
+
+
+.navbar-bg {
+    background-color: #804c1c;
+}
+.container-fluid{
+	background-color: #e2f3ff;
+	min-height: 400px;
+}
+
+.btn-default{
+    /* BS4 changed the appearance of btn-default on anchor tags.
+      I liked the old way better... so that's
+      what I am making happen here.  */
+    background-color: #CCC;
+    color: black;
+}
+.btn {
+    /*make text wrap nicely in buttons */
+    white-space:normal;
+}
+
+.btn-teal {
+    background-color: #40cdc3 !important ;
+}
+.btn-teal:hover {
+    background-color: #34b1a8 !important; /* Slightly darker teal on hover */
+}
+
+.btn-spacing {
+    margin-right: 40px; /* Adjust spacing as needed */
+}
+
+.locked {
+    display: none !important; /*locked content must not be shown to user*/
+}
+
+.unlocked {
+    border-width: initial; /*set border-width to whatever the default is. */
+}
+
+.secured {
+    border-width: initial; /*set border-width to whatever the default is. */
+}
+
+.table .btn-primary {
+    color: white !important;
+    background-color: #0d6efd !important;  /* Bootstrap's default primary color */
+}
+
+#table-items tr{
+    border: 10px solid #804c1c !important; /* Adds a bottom border to each row */
+    padding: 10px;
+    background-color: #c49d79; /* Replace with your desired color */
+} 
+#table-mylibrary tr{
+    border: 10px solid #804c1c !important; /* Adds a bottom border to each row */
+    padding: 10px;
+    background-color: #c49d79; /* Replace with your desired color */
+} 
+.book-cover-button {
+    width: 100px; /* Set size */
+    height: 150px;
+    background-size: cover;
+    background-position: center;
+    border: none;
+    cursor: pointer;
+    margin-right: 30px;
+}
+
+.sticker{
+    height: 3in;
+    width: 3.25in;
+    display: inline;
+    float: left;
+    border-style: solid;
+    border-width: 1px;
+    padding: .125in;
+    margin-left: .125in;
+    margin-right: .125in;
+    margin-bottom: .25in;
+}
+
+@media print{
+    .navbar{
+        display: none;
+    }
+
+    #button-printnow{
+        display: none;
+    }
+
+    .col-md-12{
+        display: none;
+    }
+
+    .col-md-2{
+        display: none;
+    }
+
+    br{
+        display: none;
+    }
+}
+
+.additeminput {width:100%; height: 40px}

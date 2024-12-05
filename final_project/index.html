@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <!-- Bootstrap 5 CDN -->
+        <link href="https://misdemo.temple.edu/assets/cdn/bootstrap5/bootstrap.min.css" rel="stylesheet" />
+        <script src="https://misdemo.temple.edu/assets/cdn/bootstrap5/bootstrap.bundle.min.js"></script>
+        
+        <!-- jQuery 3.6 CDN -->
+        <script src="https://misdemo.temple.edu/assets/cdn/jquery/3.6.4/jquery.min.js"></script>
+                
+        <!-- Link to FontAwesome -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+        
+        <!-- Your custom CSS -->
+        <link rel="stylesheet" href="css/app.css" />
+
+        <!-- Your custom JavaScript -->
+        <script src="js/app.js"></script>
+
+        <!-- Link to image for the favicon -->
+        <link rel="icon" href="images/TU100x100.png" />
+    </head>
+
+    <body>
+        <!-- Top Navigation Bar -->
+
+        <nav class="navbar navbar-expand-md navbar-bg navbar-dark fixed-top" style="padding-left: 20px; padding-right: 20px;">
+            <!-- Logo -->
+            <a class="navbar-brand" href="index.html">
+                <img src="images/booklogo2.png" style="width: 40px;" alt="Temple Logo"/>
+                &nbsp;&nbsp;BookNook<title>BookNook</title>
+            </a>
+
+            <!-- Toggler Icon for responsiveness -->
+            <button id="toggle-icon" class="navbar-toggler secured" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar" aria-controls="collapsibleNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <!--Menu sets on the left -->
+                <ul class="navbar-nav me-auto"></ul>
+                <!--Menu sets on the right -->
+                <!--Each individual item can be secured by adding the class: secured -->
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item secured">
+                        <a class="nav-link" id="link-view"><i class="fa fa-eye"></i> Browse Library </a>
+                    </li>
+                    <li class="nav-item secured">
+                        <a class="nav-link" id="link-mylibrary"><i class="fa fa-book"></i> My Library </a>
+                    </li>
+                    <li class="nav-item secured">
+                        <a class="nav-link" id="link-add"><i class="fa fa-plus"></i> Add Book </a>
+                    </li>
+                    <li class="nav-item secured">
+                        <a class="nav-link" id="link-logout"><i class="fa fa-sign-out"></i> Logout </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <br>
+        <br>
+        <br>
+        <br>
+
+        <!--Start container for BS5 (Bootstrap 5) formatting-->
+        <div class="container-fluid">
+            <div class="row text-center">
+                <div class="col-md-12">
+                    &nbsp;
+                    <!-- place holder for additional top row content -->
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-2"></div>
+                <!-- 2 spans on the left -->
+
+
+                <div class="col-md-8 content-wrapper" id="div-viewitem" style="display: none;">
+                    <div class="text-left">
+                        <h1>Book Info</h1>
+                        <hr>
+                        <p><strong>Name: </strong><span id="name"></span></p>
+                        <br>
+                        <p><strong>Author: </strong><span id="author"></span></p>
+                        <br>
+                        <p><strong>Description: </strong><span id="descript"></span></p>
+                        <br>
+                        <input type="button" value="Rent" id="button-rent" class="btn btn-teal" style="font-size: 2em;width:49.5%">
+                        <input type="button" value="Back" id="button-back" class="btn btn-teal" style="font-size: 2em;width:49.5%">
+                        <br>
+                        <br>
+                        <input type="button" value="Delete" id="button-deleteiteminfo" class="btn btn-danger" style="font-size: 2em;width:100%">
+                        <br>
+        
+                    </div>
+                </div>
+
+                <div class="col-md-8 content-wrapper" id="div-adminlist" style="display: none;">
+                    <div class="text-center">
+                        <h1>Browse Library</h1>
+						<table class="table" id="table-items">
+							<!-- <tr> <th>Item Code</th> <th>Item Name</th>  <th>Options</th>  </tr> -->
+							<!-- <tr> <td>abcdef9999</td> <td>Test Item</td>  <td> <input type="button" id="button-viewitem" onclick="viewItemController(9999)" class="btn btn-primary" value="View"> </td>  </tr> -->
+						</table>
+						<br>
+						<br>
+						 <div id="message-adminlist"></div>
+                    </div>
+                </div>
+
+                <div class="col-md-8 content-wrapper" id="div-additemsuccess" style="display: none;">
+                    <div class="text-center">
+                        <h1 id="addeditemSuccessTitle">Item Added</h1>
+                        <hr>
+                        <img src="images/check_medium.png" alt="additemsucess">
+                        <br>
+                        <br>
+                        <br>
+                        <input type="button" value="Add Another Item" id="button-addanotheritem" class="btn btn-primary" style="font-size: 2em;width:100%">
+                        <br>
+                        <br>
+                        <input type="button" value="Menu" id="button-additemmenu" class="btn btn-secondary" style="font-size: 2em;width:100%">
+                    </div>
+                </div>
+
+                <div class="col-md-8 content-wrapper" id="div-mylibrary" style="display: none;">
+                    <div class="text-center">
+                        <h1>My Library</h1>
+						<table class="table" id="table-mylibrary">
+							<!-- <tr> <th>Item Code</th> <th>Item Name</th>  <th>Options</th>  </tr> -->
+							<!-- <tr> <td>abcdef9999</td> <td>Test Item</td>  <td> <input type="button" id="button-viewitem" onclick="viewItemController(9999)" class="btn btn-primary" value="View"> </td>  </tr> -->
+						</table>
+						<br>
+						<br>
+						 <div id="message-mylibrary"></div>
+                    </div>
+                </div>      
+                
+                <div class="col-md-8 content-wrapper" id="div-viewitem2" style="display: none;">
+                    <div class="text-left">
+                        <h1>Book Info</h1>
+                        <hr>
+                        <p><strong>Name: </strong><span id="name2"></span></p>
+                        <br>
+                        <p><strong>Author: </strong> <span id="author2"></span></p>
+                        <br>
+                        <p><strong>Description: </strong><span id="descript2"></span></p>
+                        <input type="button" value="Read Now" id="button-viewitem2" class="btn btn-teal" style="font-size: 2em;width:49.5%">
+                        <input type="button" value="Return Book" id="button-returnbook" class="btn btn-danger" style="font-size: 2em;width:49.5%">
+                        <br>
+                        <br>
+                        <input type="button" value="Back" id="button-back2" class="btn btn-teal" style="font-size: 2em;width:100%;">
+                    </div>
+                </div>
+
+                <div class="col-md-8 content-wrapper" id="div-additem" style="display: none;">
+                    <div class="text-left">
+                        <h1>Add an item</h1>
+                        <div id="message-additem"></div>
+                        <form id="additem-form">
+                            <label for="name-f" class="additemlabel">Book Name:</label><br>
+                            <input type="text" id="name-f" name="name" class="additeminput"><br>
+                            <br>
+                            <label for="author-f" class="additemlabel">Author:</label><br>
+                            <input type="text" id="author-f" name="author" class="additeminput"><br>
+                            <br>
+                            <label for="descript-f" class="additemlabel">Description:</label><br>
+                            <input type="text" id="descript-f" name="description" class="additeminput"><br>
+                            <br>
+                            <label for="bookcover-f" class="additemlabel">Book Cover Url:</label><br>
+                            <input type="text" id="bookcover-f" name="bookcover" class="additeminput"><br>
+                            <br>
+                            <input type="button" value="Add Item" id="button-addnewitem" class="btn btn-teal" style="font-size: 2em;width:100%">
+                            <br>
+                            <br>
+                            <input type="button" value="Cancel" id="button-additemback" class="btn btn-teal" style="font-size: 2em;width:100%">
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-md-8 content-wrapper" id="div-menu" style="display: none;">
+                    <div class="text-center">
+                        <h1>Options</h1>
+                        <input type="button" value="Browse Library" id="button-adminlist" class="btn btn-teal" style="font-size: 2em;width:100%">
+                        <br>
+                        <br>
+                        <input type="button" value="My Library" id="button-mylibrary" class="btn btn-teal" style="font-size: 2em;width:100%">
+                        <br>
+                        <br>
+                        <input type="button" value="Add Book" id="button-additem" class="btn btn-teal" style="font-size: 2em;width:100%">
+                        <br>
+                        <br>
+                        <input type="button" value="Logout" id="button-logout" class="btn btn-secondary" style="font-size: 2em;width:100%">
+                        <br>
+                        <br>
+                    </div>
+                </div> 
+                
+
+
+                <div class="col-md-8 content-wrapper" id="div-login" style="display: none;">
+                    <h1>BookNook</h1>
+                    <form id="form-login">
+                        <label for="username" class="label">Username:</label>
+                        <input type="text" id="username" name="username" class="form-control">
+                        <label for="password" class="label">Password:</label>
+                        <input type="password" id="password" name="password" class="form-control">
+                        <br>
+                        <input type="button" value="Login" id="button-login" class="btn btn-teal" style="font-size: 2em;width:100%">
+                        <br>
+                        <br>
+                        <div id="message-login"></div>
+                    </form>
+                </div>
+
+
+                <div class="col-md-2"></div>
+                <!-- 2 spans on the right -->
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <div>
+                        &nbsp;
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- container //-->
+
+        <br>
+
+        <div class="container-fluid bg-dark text-white">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    &copy; 2024 MIS3502 - BookNook
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    &nbsp;
+                    <!-- place holder for additional footer content -->
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
