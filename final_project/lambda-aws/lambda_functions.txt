@@ -1,3 +1,17 @@
+// MIS3502 - Web Service Template
+// Created by: Jeremy Shafer
+// Fall 2024
+
+// REMINDER - Don't forget to change your database connection
+// timeout from 3 seconds to 3 minutes.
+// Look under Configuration / General Configuration
+
+// declarations (not all are needed) *****************************************
+import qs from 'qs'; //for parsing URL encoded data
+import axios from 'axios'; // for calling another API
+import mysql from 'mysql2/promise';  //for talking to a database
+import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
+
 
 const dboptions = {
   'user' : 'j42',
@@ -8,6 +22,43 @@ const dboptions = {
 
 //global connection variable
 var connection;
+
+const features = [
+
+	`Issue a POST against auth and provide a key of username and a key of password. 
+	The result will be a JSON object representing the authenticated user.`,
+
+	`Issue a GET against clients. The response will be a JSON object representing all active clients.`,
+
+	`Issue a POST against additem and provide the keys of name, author, description, and bookcover. 
+	The result will be a JSON object representing the newly created item.`,
+
+	`Issue a GET against items and provide a key of available to retrieve a JSON listing of all items, 
+	where the key available can be either 'Y' (available) or 'N' (not available). Results are ordered by name.`,
+
+	`Issue a GET against item and provide a key of itemid. This will return all the properties of the specified item.`,
+
+	`Issue a POST against useritems to return a list of items associated with a user, specified by the key userid.`,
+
+	`Issue a POST against useritems and provide an itemid and userid to return the item to the system. 
+	This will update the availability of the item.`,
+
+	`Issue a POST against item to rent an item by providing itemid and userid. 
+	The item will be marked as unavailable.`,
+
+	`Issue a DELETE against item and provide a key of itemid and userid. 
+	This will permanently delete the item from the database, and only admin users can perform this action.`,
+
+	`Issue a GET against item and provide a key of itemid. 
+	This will return detailed information about the specified item.`,
+
+	"Created by Jeremy Shafer",
+	"Last modified by Janice Augastine",
+];
+
+
+
+// supporting functions ******* STUDENT MAY EDIT ***********
 
 let returnBook = async (res,body) => {
 	//work and return the result
