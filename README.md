@@ -1,7 +1,7 @@
 # finalproject_CIS1051
 Final project for CIS1051 fall 2024
 
-My porject's overall purpose was to provide free access to books for lower-income individuals, with a fun design of a bookshelf to make the experience unique.
+My project's overall purpose was to provide free access to books for lower-income individuals, with a fun design of a bookshelf to make the experience unique.
 
 One thing that I changed was the name, simply out of convenience, since my last name was too long.
 
