@@ -27,10 +27,10 @@
     <body>
         <!-- Top Navigation Bar -->
 
-        <nav class="navbar navbar-expand-md navbar-bg navbar-dark fixed-top" style="padding-left: 20px; padding-right: 20px;">
+        <nav class="navbar navbar-expand-md navbar-bg fixed-top" style="padding-left: 20px; padding-right: 20px;">
             <!-- Logo -->
-            <a class="navbar-brand" href="index.html">
-                <img src="images/booklogo2.png" style="width: 40px;" alt="Temple Logo"/>
+            <a class="navbar-brand navbar-text">
+                <img src="images/booklogo2.png" style="width: 40px;" alt="BookNook Logo"/>
                 &nbsp;&nbsp;BookNook<title>BookNook</title>
             </a>
 
@@ -46,16 +46,19 @@
                 <!--Each individual item can be secured by adding the class: secured -->
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item secured">
-                        <a class="nav-link" id="link-view"><i class="fa fa-eye"></i> Browse Library </a>
+                        <a class="nav-link navbar-text" id="link-home"><i class="fa fa-home"></i> Home </a>
                     </li>
                     <li class="nav-item secured">
-                        <a class="nav-link" id="link-mylibrary"><i class="fa fa-book"></i> My Library </a>
+                        <a class="nav-link navbar-text" id="link-view"><i class="fa fa-eye"></i> Browse Library </a>
                     </li>
                     <li class="nav-item secured">
-                        <a class="nav-link" id="link-add"><i class="fa fa-plus"></i> Add Book </a>
+                        <a class="nav-link navbar-text" id="link-mylibrary"><i class="fa fa-book"></i> My Library </a>
+                    </li>
+                    <li class="nav-item secured" id="link-add" style="display: none;">
+                        <a class="nav-link navbar-text" id="link-add"><i class="fa fa-plus"></i> Add Book </a>
                     </li>
                     <li class="nav-item secured">
-                        <a class="nav-link" id="link-logout"><i class="fa fa-sign-out"></i> Logout </a>
+                        <a class="nav-link navbar-text" id="link-logout"><i class="fa fa-sign-out"></i> Logout </a>
                     </li>
                 </ul>
             </div>
@@ -83,19 +86,19 @@
 
                 <div class="col-md-8 content-wrapper" id="div-viewitem" style="display: none;">
                     <div class="text-left">
-                        <h1>Book Info</h1>
+                        <h1 class="text-color">
+                        BOOK INFO
+                        </h1>
                         <hr>
-                        <p><strong>Name: </strong><span id="name"></span></p>
+                        <p><strong>Title: </strong><span id="name"></span></p>
                         <br>
                         <p><strong>Author: </strong><span id="author"></span></p>
                         <br>
                         <p><strong>Description: </strong><span id="descript"></span></p>
                         <br>
-                        <input type="button" value="Rent" id="button-rent" class="btn btn-teal" style="font-size: 2em;width:49.5%">
-                        <input type="button" value="Back" id="button-back" class="btn btn-teal" style="font-size: 2em;width:49.5%">
-                        <br>
-                        <br>
-                        <input type="button" value="Delete" id="button-deleteiteminfo" class="btn btn-danger" style="font-size: 2em;width:100%">
+                        <input type="button" value="Borrow" id="button-rent" class="btn btn-teal text-button" style="font-size: 2em;width:49.5%">
+                        <input type="button" value="Back" id="button-back" class="btn btn-teal text-button" style="font-size: 2em;width:49.5%">
+                        <input type="button" value="Delete" id="button-deleteiteminfo" class="btn btn-danger" style="color: #fcdbdb; font-family: 'Georgia', serif; font-size: 2em;width:49.5%;display: none;">
                         <br>
         
                     </div>
@@ -103,7 +106,10 @@
 
                 <div class="col-md-8 content-wrapper" id="div-adminlist" style="display: none;">
                     <div class="text-center">
-                        <h1>Browse Library</h1>
+                        <h1 class="text-color">
+                            BROWSE LIBRARY
+                        </h1>
+                        <br>
 						<table class="table" id="table-items">
 							<!-- <tr> <th>Item Code</th> <th>Item Name</th>  <th>Options</th>  </tr> -->
 							<!-- <tr> <td>abcdef9999</td> <td>Test Item</td>  <td> <input type="button" id="button-viewitem" onclick="viewItemController(9999)" class="btn btn-primary" value="View"> </td>  </tr> -->
@@ -116,13 +122,13 @@
 
                 <div class="col-md-8 content-wrapper" id="div-additemsuccess" style="display: none;">
                     <div class="text-center">
-                        <h1 id="addeditemSuccessTitle">Item Added</h1>
+                        <h1 class="text-color" id="addeditemSuccessTitle">BOOK ADDED</h1>
                         <hr>
-                        <img src="images/check_medium.png" alt="additemsucess">
+                        <img src="images/Check-mark.png" alt="additemsuccess">
                         <br>
                         <br>
                         <br>
-                        <input type="button" value="Add Another Item" id="button-addanotheritem" class="btn btn-primary" style="font-size: 2em;width:100%">
+                        <input type="button" value="Add Another Item" id="button-addanotheritem" class="btn btn-primary btn btn-teal text-button" style="font-size: 2em;width:100%">
                         <br>
                         <br>
                         <input type="button" value="Menu" id="button-additemmenu" class="btn btn-secondary" style="font-size: 2em;width:100%">
@@ -131,7 +137,9 @@
 
                 <div class="col-md-8 content-wrapper" id="div-mylibrary" style="display: none;">
                     <div class="text-center">
-                        <h1>My Library</h1>
+                        <h1 class="text-color">
+                            MY LIBRARY
+                        </h1>
 						<table class="table" id="table-mylibrary">
 							<!-- <tr> <th>Item Code</th> <th>Item Name</th>  <th>Options</th>  </tr> -->
 							<!-- <tr> <td>abcdef9999</td> <td>Test Item</td>  <td> <input type="button" id="button-viewitem" onclick="viewItemController(9999)" class="btn btn-primary" value="View"> </td>  </tr> -->
@@ -144,24 +152,32 @@
                 
                 <div class="col-md-8 content-wrapper" id="div-viewitem2" style="display: none;">
                     <div class="text-left">
-                        <h1>Book Info</h1>
+                        <h1 class="text-color">
+                            BOOK INFO
+                        </h1>
                         <hr>
-                        <p><strong>Name: </strong><span id="name2"></span></p>
+                        <p><strong>Title: </strong><span id="name2"></span></p>
                         <br>
                         <p><strong>Author: </strong> <span id="author2"></span></p>
                         <br>
                         <p><strong>Description: </strong><span id="descript2"></span></p>
-                        <input type="button" value="Read Now" id="button-viewitem2" class="btn btn-teal" style="font-size: 2em;width:49.5%">
-                        <input type="button" value="Return Book" id="button-returnbook" class="btn btn-danger" style="font-size: 2em;width:49.5%">
+                        <br>
+                        <p><strong>* May take a minute to load book</strong></span></p>
+                    
+                        <input type="button" value="Read Now" id="button-read" class="btn btn-teal text-button" style="font-size: 2em;width:49.5%">
+                        <input type="button" value="Return Book" id="button-returnbook" class="btn btn-danger" style="color: #fcdbdb; font-family: 'Georgia', serif; font-size: 2em;width:49.5%">
                         <br>
                         <br>
-                        <input type="button" value="Back" id="button-back2" class="btn btn-teal" style="font-size: 2em;width:100%;">
+                        <input type="button" value="Back" id="button-back2" class="btn btn-teal text-button" style="font-size: 2em;width:100%;">
                     </div>
                 </div>
 
                 <div class="col-md-8 content-wrapper" id="div-additem" style="display: none;">
                     <div class="text-left">
-                        <h1>Add an item</h1>
+                        <h1 class="text-color">
+                            ADD A BOOK
+                        </h1>
+                        <p><strong>* Must select a book from <a href="https://www.gutenberg.org" target="_blank" rel="noopener noreferrer">Project Gutenberg</a></strong><span id="instruct"></span></p>
                         <div id="message-additem"></div>
                         <form id="additem-form">
                             <label for="name-f" class="additemlabel">Book Name:</label><br>
@@ -176,43 +192,40 @@
                             <label for="bookcover-f" class="additemlabel">Book Cover Url:</label><br>
                             <input type="text" id="bookcover-f" name="bookcover" class="additeminput"><br>
                             <br>
-                            <input type="button" value="Add Item" id="button-addnewitem" class="btn btn-teal" style="font-size: 2em;width:100%">
+                            <br>
+                            <input type="button" value="Add Item" id="button-addnewitem" class="btn btn-teal text-button" style="font-size: 2em;width:100%">
                             <br>
                             <br>
-                            <input type="button" value="Cancel" id="button-additemback" class="btn btn-teal" style="font-size: 2em;width:100%">
+                            <input type="button" value="Cancel" id="button-additemback" class="btn btn-teal text-button" style="font-size: 2em;width:100%">
                         </form>
                     </div>
                 </div>
 
                 <div class="col-md-8 content-wrapper" id="div-menu" style="display: none;">
                     <div class="text-center">
-                        <h1>Options</h1>
-                        <input type="button" value="Browse Library" id="button-adminlist" class="btn btn-teal" style="font-size: 2em;width:100%">
-                        <br>
-                        <br>
-                        <input type="button" value="My Library" id="button-mylibrary" class="btn btn-teal" style="font-size: 2em;width:100%">
-                        <br>
-                        <br>
-                        <input type="button" value="Add Book" id="button-additem" class="btn btn-teal" style="font-size: 2em;width:100%">
-                        <br>
-                        <br>
-                        <input type="button" value="Logout" id="button-logout" class="btn btn-secondary" style="font-size: 2em;width:100%">
-                        <br>
-                        <br>
+                       <h1 style="color: #025f60; font-family: 'Georgia', serif; font-size: 3em;">
+                        MENU
+                       </h1>
+                        <input type="button" value="Browse Library" id="button-adminlist" class="btn btn-teal menu-button text-button" style="font-size: 2em;width:100%">
+                        <input type="button" value="My Library" id="button-mylibrary" class="btn btn-teal menu-button text-button" style="font-size: 2em;width:100%">
+                        <input type="button" value="Add Book" id="button-additem" class="btn btn-teal menu-button text-button" style="font-size: 2em;width:100%; display: none;">
+                        <input type="button" value="Logout" id="button-logout" class="btn btn-secondary menu-button" style="font-family: 'Georgia', serif;font-size: 2em;width:100%">
                     </div>
-                </div> 
+                </div>
+
                 
-
-
+ 
                 <div class="col-md-8 content-wrapper" id="div-login" style="display: none;">
-                    <h1>BookNook</h1>
+                    <h1 class="text-center" style="color: #025f60; font-family: 'Georgia', serif; font-size: 3em;">
+                        BookNook
+                    </h1>
                     <form id="form-login">
                         <label for="username" class="label">Username:</label>
                         <input type="text" id="username" name="username" class="form-control">
                         <label for="password" class="label">Password:</label>
                         <input type="password" id="password" name="password" class="form-control">
                         <br>
-                        <input type="button" value="Login" id="button-login" class="btn btn-teal" style="font-size: 2em;width:100%">
+                        <input type="button" value="Login" id="button-login" class="btn btn-teal text-button" style="font-size: 2em;width:100%">
                         <br>
                         <br>
                         <div id="message-login"></div>
@@ -236,7 +249,7 @@
 
         <br>
 
-        <div class="container-fluid bg-dark text-white">
+        <div class="container-fluid text-black">
             <div class="row">
                 <div class="col-md-12 text-center">
                     &copy; 2024 MIS3502 - BookNook

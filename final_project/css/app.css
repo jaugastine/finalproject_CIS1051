@@ -7,6 +7,16 @@ label{
     font-size: 1.25em;
 }
 
+.navbar-text{
+    color:#ffffff !important
+}
+
+.navbar .nav-link {
+    color: #ffffff !important; /* Force white text */
+}
+.navbar-brand {
+    color: #ffffff !important; /* Ensure logo text is white */
+}
 
 .navbar-bg {
     background-color: #804c1c;
@@ -15,14 +25,31 @@ label{
 	background-color: #e2f3ff;
 	min-height: 400px;
 }
-
+.bottom-bg{
+	background-color: #e2f3ff;
+	min-height: 400px;
+}
 .btn-default{
     /* BS4 changed the appearance of btn-default on anchor tags.
       I liked the old way better... so that's
       what I am making happen here.  */
     background-color: #CCC;
     color: black;
+    font-family: 'Georgia', serif;
 }
+
+.text-color{
+    color: #025f60;
+    font-family: 'Georgia', serif;
+    font-size: 2em;
+}
+
+.text-button{
+    color: #154040;
+    font-family: 'Georgia', serif;
+    font-size: 2em !important;
+}
+
 .btn {
     /*make text wrap nicely in buttons */
     white-space:normal;
@@ -31,9 +58,16 @@ label{
 .btn-teal {
     background-color: #40cdc3 !important ;
 }
+
 .btn-teal:hover {
     background-color: #34b1a8 !important; /* Slightly darker teal on hover */
 }
+
+.menu-button {
+    margin: 40px 0 !important; /* Adds spacing between buttons */
+    display: block; /* Makes sure buttons stack vertically */
+}
+
 
 .btn-spacing {
     margin-right: 40px; /* Adjust spacing as needed */
@@ -74,41 +108,6 @@ label{
     border: none;
     cursor: pointer;
     margin-right: 30px;
-}
-
-.sticker{
-    height: 3in;
-    width: 3.25in;
-    display: inline;
-    float: left;
-    border-style: solid;
-    border-width: 1px;
-    padding: .125in;
-    margin-left: .125in;
-    margin-right: .125in;
-    margin-bottom: .25in;
-}
-
-@media print{
-    .navbar{
-        display: none;
-    }
-
-    #button-printnow{
-        display: none;
-    }
-
-    .col-md-12{
-        display: none;
-    }
-
-    .col-md-2{
-        display: none;
-    }
-
-    br{
-        display: none;
-    }
 }
 
 .additeminput {width:100%; height: 40px}
